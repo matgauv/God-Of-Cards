@@ -11,19 +11,31 @@ public class CardDeck {
         cards = new ArrayList<>();
     }
 
-    // MODIFIES: this
-    // EFFECTS: adds a card into the CardDeck unless the card is already in there.
-    public void addCard(Card c) {
-        if (!cards.contains(c)) {
-            cards.add(c);
-        }
+    // EFFECTS: returns number of cards in deck.
+    public int numCards() {
+        return cards.size();
     }
 
-    // REQUIRES: card must be in the deck
     // MODIFIES: this
-    // EFFECTS: removes the card from the deck
-    public void removeCard(Card c) {
-        cards.remove(c);
+    // EFFECTS: adds a card into the CardDeck and returns true
+    //          if card is already in deck, returns false
+    public boolean addCard(Card c) {
+        if (!cards.contains(c)) {
+            cards.add(c);
+            return true;
+        }
+        return false;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes the card from the deck and returns true.
+    //          if card is not in deck, returns false.
+    public boolean removeCard(Card c) {
+        if (cards.contains(c)) {
+            cards.remove(c);
+            return true;
+        }
+        return false;
     }
 
     // EFFECTS: returns true if card with name c is already in deck, false otherwise.
@@ -36,8 +48,8 @@ public class CardDeck {
         return false;
     }
 
-    // REQUIRES: card with name s must be in deck
     // EFFECTS: returns card with name s in card deck.
+    //          if card not in deck, returns null;
     public Card getCard(String s) {
 
         for (Card c : cards) {

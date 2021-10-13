@@ -3,7 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Character {
+public class Character {
 
     private String name;
     private int health;
@@ -61,18 +61,14 @@ public abstract class Character {
     public int applyStrength() {
         int strength = 0;
 
-        for (Effect e : effectsApplied) {
-
-            if (e.isStrength()) {
-                strength += e.getDamage();
-                effectsApplied.remove(e);
-                if (effectsApplied.size() == 0) {
-                    break;
-                }
-
+        for (int i = 0; i < effectsApplied.size(); i++) {
+            if (effectsApplied.get(i).isStrength()) {
+                strength += effectsApplied.get(i).getDamage();
+                effectsApplied.remove(effectsApplied.get(i));
+                i--;
             }
-        }
 
+        }
         return strength;
     }
 
@@ -84,16 +80,15 @@ public abstract class Character {
 
         int resist = 0;
 
-        for (Effect e : effectsApplied) {
+        for (int i = 0; i < effectsApplied.size(); i++) {
 
-            if (e.isResistance()) {
-                resist += e.getResistance();
-                effectsApplied.remove(e);
-                if (effectsApplied.size() == 0) {
-                    break;
-                }
+            if (effectsApplied.get(i).isResistance()) {
+                resist += effectsApplied.get(i).getResistance();
+                effectsApplied.remove(effectsApplied.get(i));
+                i--;
             }
         }
+
 
         return resist;
     }
@@ -104,16 +99,16 @@ public abstract class Character {
         return cardDeck.contains(c);
     }
 
-    // REQUIRES: card with name s must be in card deck.
     // EFFECTS: returns card with name s from card deck.
     public Card getCard(String s) {
         return cardDeck.getCard(s);
     }
 
     // MODIFIES: this
-    // EFFECTS: adds card to card deck if card is not already in deck
-    public void addCard(Card c) {
-        cardDeck.addCard(c);
+    // EFFECTS: adds card to card deck and returns true.
+    //          if card is already in deck, returns false.
+    public boolean addCard(Card c) {
+        return cardDeck.addCard(c);
     }
 
     // MODIFIES: this
@@ -135,6 +130,10 @@ public abstract class Character {
     // EFFECTS: returns character's card deck.
     public CardDeck getCardDeck() {
         return cardDeck;
+    }
+
+    public List<Effect> getEffectsApplied() {
+        return effectsApplied;
     }
 }
 
