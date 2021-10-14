@@ -153,6 +153,38 @@ public class CharacterTest {
         assertEquals("Player", name);
     }
 
+    @Test
+    public void testSetHealth() {
+        p.setHealth(500);
+        assertEquals(500, p.getHealth());
+    }
+
+    @Test
+    public void testApplyStrength() {
+        assertEquals(0, p.applyStrength());
+
+        p.addCardEffect(ShieldCard);
+        p.addCardEffect(StrengthCard);
+        p.addCardEffect(StrengthCard);
+        assertEquals(3, p.getEffectsApplied().size());
+
+        assertEquals(100, p.applyStrength());
+        assertEquals(1, p.getEffectsApplied().size());
+    }
+
+    @Test
+    public void testApplyResistance() {
+        assertEquals(0, p.applyResistance());
+
+        p.addCardEffect(ShieldCard);
+        p.addCardEffect(ShieldCard);
+        assertEquals(2, p.getEffectsApplied().size());
+
+        assertEquals(200, p.applyResistance());
+        assertEquals(0, p.getEffectsApplied().size());
+    }
+
+
 
 
 

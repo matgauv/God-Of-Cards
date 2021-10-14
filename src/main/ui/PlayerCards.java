@@ -3,6 +3,7 @@ package ui;
 import model.Card;
 import model.Effect;
 
+// A class that stores all Player cards.
 public class PlayerCards {
 
     public static final Card PLAYER_ATTACK_1 = new Card("Spear Jab",

@@ -9,37 +9,41 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// A game class representing the console user interface that player's interact with
 public class Game {
 
-    private static final int MAX_HEALTH = 1000;
+    private static final int MAX_HEALTH = 1000; //MAX HEALTH FOR PLAYER
 
     private static final Character HADES = new Character("HADES, GOD OF THE UNDERWORLD",
-            750);
+            750); // CONSTANT HADES CHARACTER OBJECT
 
     private static final Character APHRODITE = new Character("APHRODITE, GODDESS OF LOVE",
-            1000);
+            1000); // CONSTANT APHRODITE CHARACTER OBJECT
 
     private static final Character POSEIDON = new Character("POSEIDON, GOD OF THE SEA",
-            1250);
+            1250); // CONSTANT POSEIDON CHARACTER OBJECT
 
     private static final Character ATHENA = new Character("ATHENA, GODDESS OF WAR",
-            1500);
-
+            1500); // CONSTANT ATHENA CHARACTER OBJECT
 
     private static final Character ZEUS = new Character("ZEUS, FATHER GOD OF THE SKY",
-            2000);
+            2000); // CONSTANT ZEUS CHARACTER OBJECT
 
 
-    private Character player;
-    private Character boss;
-    private Scanner input;
-    private CardDeck rewardCards;
-    private List<Character> listOfGods;
+    private Character player;           // the player character who interacts with the game.
+    private Character boss;             // the current boss character that player is fighting
+    private Scanner input;              // player input
+    private CardDeck rewardCards;       // a list of cards that player can choose to add to their deck
+    private List<Character> listOfGods; // a list of boss characters that player has to fight
 
+    // Instantiates a new game and runs it.
     public Game() {
         runGame();
     }
 
+    // MODIFES: this
+    // EFFECTS: starts the game, initializes fields, iterates player through all boss battles,
+    //          tracks if player has won or lost the game.
     public void runGame() {
 
         setUpGame();
@@ -59,6 +63,9 @@ public class Game {
         gameOver();
     }
 
+    // MODIFIES: this
+    // EFFECTS: initiates battle with given boss, sets player health to max,
+    //          initializes boss field to given boss.
     public void initiateBattle(Character boss) {
         this.boss = boss;
         player.setHealth(MAX_HEALTH);
@@ -71,6 +78,9 @@ public class Game {
 
     }
 
+    // EFFECTS: represents a players turn; spawns death message if player health = 0,
+    //          displays playable cards in player's card deck, prompts player to play a card
+    //          and processes that move.
     public void playerTurn() {
         if (player.getHealth() == 0) {
             printBorders();
@@ -92,6 +102,8 @@ public class Game {
         }
     }
 
+    // EFFECTS: represents a boss' turn; spawns defeat message if boss health = 0,
+    //          picks a boss' move at random and processes it.
     public void bossTurn() {
         if (boss.getHealth() == 0) {
             printBorders();
@@ -108,6 +120,9 @@ public class Game {
         }
     }
 
+    // EFFECTS: processes given card and uses it on currentPlayer or opponent (wherever applicable);
+    //          determines whether it is an effect or attack card and either applies effect or attacks
+    //          opponent with the given card statistics.
     public void processCard(String cardChosen, Character currentPlayer, Character opponent) {
 
         System.out.println("\n()()()()()()()()()()()()()()()()()()()()()()()()()");
@@ -136,6 +151,8 @@ public class Game {
         getRightInput("", "Press 'Enter' to continue...");
     }
 
+    // EFFECTS: if the last boss hasn't been defeated, prints a message prompting a player
+    //          to view a reward and allows player to choose a new card to add to deck.
     public void afterBossDefeat() {
         if (!(boss.getName().equals("ZEUS, FATHER GOD OF THE SKY"))) {
             System.out.println("\nYou have received a reward for your success...");
@@ -144,6 +161,8 @@ public class Game {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: initializes and modifies rewardCards and listOfGods fields.
     public void setUpGame() {
         listOfGods = new ArrayList();
         rewardCards = new CardDeck();
@@ -161,8 +180,8 @@ public class Game {
         rewardCards.addCard(PlayerCards.PLAYER_ATTACK_3);
     }
 
-
-
+    // MODIFIES: this
+    // EFFECTS: initializes input and player fields with user inputted data.
     public void beginGame() {
         System.out.println("Please enter your name: ");
         input = new Scanner(System.in);
@@ -176,7 +195,9 @@ public class Game {
         newCard(PlayerCards.PLAYER_ATTACK_1);
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: updates boss' card deck; sets up boss with specific cards based
+    //          on their name.
     public void setUpBoss() {
         if (boss.getName().equals("HADES, GOD OF THE UNDERWORLD")) {
             boss.addCard(BossCards.HADES_ATTACK);
@@ -201,6 +222,10 @@ public class Game {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: chooses user inputted card and adds it to player's card deck;
+    //          chosen card is removed from rewardCards field and the weaker type
+    //          of chosen card is removed from player's deck (where applicable)
     public void chooseNewCard() {
 
         List<Card> cardsToChoose = rewardCards.getCards();
@@ -225,6 +250,7 @@ public class Game {
         }
     }
 
+    // EFFECTS: displays the next two possible cards that a player can choose from
     public void displayNewCard() {
         System.out.println("\nPlease choose a new card to add to your deck:");
         List<Card> cardsToChoose = rewardCards.getCards();
@@ -239,6 +265,8 @@ public class Game {
         chooseNewCard();
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes any card from player card deck that is of same type as c
     public void removeWeakerCardOfType(Card c) {
 
         for (Card i : player.getCardDeck().getCards()) {
@@ -249,6 +277,8 @@ public class Game {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds card c to player's card deck and prints it out.
     public void newCard(Card c) {
         player.addCard(c);
         System.out.println("\nA new card has been added to your deck...");
@@ -257,6 +287,8 @@ public class Game {
         getRightInput("next", "Type 'next'");
     }
 
+    // EFFECTS: prompts player to input the right string; if right string is not inputted,
+    //          player is prompted infinitely until right string is inputted
     public void getRightInput(String right, String msg) {
 
         boolean wrongInput = true;
@@ -273,6 +305,7 @@ public class Game {
 
     }
 
+    // EFFECTS: prints all cards in player's card deck.
     public void displayCards() {
         for (Card c : player.getCardDeck().getCards()) {
             printCard(c);
@@ -280,6 +313,7 @@ public class Game {
         System.out.println("\nType the name of the card you want to play (case sensitive): ");
     }
 
+    // EFFECTS: prints card c.
     public void printCard(Card c) {
         String type;
         String damage;
@@ -302,16 +336,18 @@ public class Game {
         System.out.println("\n" + "-=-=-=" + c.getName() + "=-=-=-\n");
     }
 
+    // EFFECTS: prints a border (for formatting)
     public void printBorders() {
         System.out.println("========================================================================");
     }
 
+    // EFFECTS: represents the gameOver state
     public void gameOver() {
-        System.out.println("\nThanks for playing " + player.getName() + "!");
+        System.out.println("\nThanks for playing !");
 
     }
 
-
+    // EFFECTS: represents the state where player wins.
     public void gameWin() {
         System.out.println("\nCongratulations! You have beaten all of the Gods of Olympus...\n");
         getRightInput("", "Press 'Enter' to continue...");

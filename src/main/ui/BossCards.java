@@ -3,6 +3,7 @@ package ui;
 import model.Card;
 import model.Effect;
 
+// A class that stores all boss cards
 public class BossCards {
 
     public static final Card HADES_ATTACK = new Card("Soul Extraction",

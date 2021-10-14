@@ -3,6 +3,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CardDeckTest {
@@ -108,6 +110,12 @@ public class CardDeckTest {
         Card theCard = cardDeck.getCard("Shield Card");
         assertEquals(null, theCard);
 
+    }
+
+    @Test
+    public void testGetCards() {
+        List<Card> cardsList = cardDeck.getCards();
+        assertEquals(cardsList.size(), cardDeck.getCards().size());
     }
 
 
