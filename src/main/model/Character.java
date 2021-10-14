@@ -3,13 +3,16 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a Character with a name, health, a CardDeck, and a list of applied effects.
 public class Character {
 
-    private String name;
-    private int health;
-    private CardDeck cardDeck;
-    private List<Effect> effectsApplied;
+    private String name;                 // the name of a Character.
+    private int health;                  // the health of a Character.
+    private CardDeck cardDeck;           // the Character's CardDeck; represents a list of cards they can use
+    private List<Effect> effectsApplied; // a list of effects that are currently applied on to the Character.
 
+    // Instantiates a new Character object with a unique name and health, an empty CardDeck,
+    //                                          and no effects applied.
     public Character(String name, int health) {
 
         this.name = name;

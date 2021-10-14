@@ -3,10 +3,12 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+// Represents a CardDeck that holds Card objects in a list and can act on them.
 public class CardDeck {
 
-    private List<Card> cards;
+    private List<Card> cards; // A list of cards in the card deck.
 
+    // A new CardDeck object is instantiated with an empty list of Cards.
     public CardDeck() {
         cards = new ArrayList<>();
     }
