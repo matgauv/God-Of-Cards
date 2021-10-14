@@ -41,7 +41,7 @@ public class Character {
 
     // EFFECTS: deals random damage from card (cardDamage - 25 <= damage <= cardDamage + 25)
     //          with strength effects to another character.
-    public void attack(Card c, Character b) {
+    public String attack(Card c, Character b) {
 
         int cardDamage = c.getEffect().getDamage();
         int maxDamage = cardDamage + 25;
@@ -49,6 +49,9 @@ public class Character {
         int damageDealt = (int) Math.floor(Math.random() * (maxDamage - minDamage + 1) + minDamage);
         damageDealt += applyStrength();
         b.takeDamage(damageDealt);
+        String toString = name + " used " + c.getName() + " and dealt "
+                + damageDealt + " damage to " + b.getName();
+        return toString;
     }
 
     // MODIFIES: this

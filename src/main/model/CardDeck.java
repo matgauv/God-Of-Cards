@@ -66,6 +66,11 @@ public class CardDeck {
         return null;
     }
 
+    // EFFECTS: returns list of cards in card deck.
+    public List<Card> getCards() {
+        return cards;
+    }
+
 
 
 }
