@@ -179,9 +179,8 @@ public class Game {
         rewardCards.addCard(PlayerCards.PLAYER_PIERCE_1);
         rewardCards.addCard(PlayerCards.PLAYER_ATTACK_2);
         rewardCards.addCard(PlayerCards.PLAYER_SHIELD_2);
-        rewardCards.addCard(PlayerCards.PLAYER_ATTACK_3);
-        rewardCards.addCard(PlayerCards.PLAYER_SHIELD_3);
         rewardCards.addCard(PlayerCards.PLAYER_PIERCE_2);
+        rewardCards.addCard(PlayerCards.PLAYER_ATTACK_3);
     }
 
     // MODIFIES: this
@@ -259,8 +258,8 @@ public class Game {
     public void removeWeakerCardsNotChosen() {
         if (rewardCards.contains("Iron Shield") && rewardCards.getCards().size() == 5) {
             rewardCards.removeCard(rewardCards.getCard("Iron Shield"));
-        } else if (rewardCards.contains("Platinum Shield") && rewardCards.getCards().size() == 3) {
-            rewardCards.removeCard(rewardCards.getCard("Platinum Shield"));
+        } else if (rewardCards.contains("Iron Pierce") && rewardCards.getCards().size() == 5) {
+            rewardCards.removeCard(rewardCards.getCard("Iron Pierce"));
         }
     }
 
