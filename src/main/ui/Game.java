@@ -41,7 +41,6 @@ public class Game {
         runGame();
     }
 
-    // MODIFIES: this
     // EFFECTS: starts the game, initializes fields, iterates player through all boss battles,
     //          tracks if player has won or lost the game.
     public void runGame() {
@@ -84,7 +83,7 @@ public class Game {
     public void playerTurn() {
         if (player.getHealth() == 0) {
             printBorders();
-            System.out.println(player.getName() + " have been defeated by " + boss.getName());
+            System.out.println(player.getName() + " has been defeated by " + boss.getName());
             System.out.println("\nYou are not worthy to be the GOD OF CARDS...");
             printBorders();
         } else {
@@ -253,8 +252,8 @@ public class Game {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes the weaker version of card type if it has not been chosen by the time
-    //          the stronger version appears as a choice to player.
+    // EFFECTS: removes the weaker version of card type in rewardCards if it has not been chosen
+    //          by the time the stronger version appears as a choice to player.
     public void removeWeakerCardsNotChosen() {
         if (rewardCards.contains("Iron Shield") && rewardCards.getCards().size() == 5) {
             rewardCards.removeCard(rewardCards.getCard("Iron Shield"));
@@ -367,7 +366,7 @@ public class Game {
         System.out.println("\nCongratulations! You have beaten all of the Gods of Olympus...\n");
         getRightInput("", "Press 'Enter' to continue...");
         printBorders();
-        System.out.println("You are worthy of being deemed " + player.getName() + " AND CARDS");
+        System.out.println("You are worthy of being deemed " + player.getName() + " ...AND CARDS!");
         printBorders();
     }
 }
