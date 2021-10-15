@@ -24,5 +24,11 @@ public class PlayerCards {
     public static final Card PLAYER_SHIELD_2 = new Card("Platinum Shield",
             new Effect(0, 200, 2));
 
+    public static final Card PLAYER_SHIELD_3 = new Card("Diamond Shield",
+            new Effect(0, 300, 2));
+
+    public static final Card PLAYER_PIERCE_2 = new Card("Platinum Pierce",
+            new Effect(200, 0, 3));
+
 
 }

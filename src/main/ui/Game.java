@@ -41,7 +41,7 @@ public class Game {
         runGame();
     }
 
-    // MODIFES: this
+    // MODIFIES: this
     // EFFECTS: starts the game, initializes fields, iterates player through all boss battles,
     //          tracks if player has won or lost the game.
     public void runGame() {
@@ -135,9 +135,11 @@ public class Game {
             System.out.println(currentPlayer.getName() + " used " + playedCard.getName());
 
             if (cardEffect.isStrength()) {
-                System.out.println(currentPlayer.getName() + "'S pierce has increased!");
+                System.out.println(currentPlayer.getName() + "'S pierce has increased by "
+                        + cardEffect.getDamage());
             } else {
-                System.out.println(currentPlayer.getName() + " 'S resistance has increased!");
+                System.out.println(currentPlayer.getName() + "'S resistance has increased by "
+                        + cardEffect.getResistance());
             }
         } else {
             int startHealth = opponent.getHealth();
@@ -178,6 +180,8 @@ public class Game {
         rewardCards.addCard(PlayerCards.PLAYER_ATTACK_2);
         rewardCards.addCard(PlayerCards.PLAYER_SHIELD_2);
         rewardCards.addCard(PlayerCards.PLAYER_ATTACK_3);
+        rewardCards.addCard(PlayerCards.PLAYER_SHIELD_3);
+        rewardCards.addCard(PlayerCards.PLAYER_PIERCE_2);
     }
 
     // MODIFIES: this
@@ -228,25 +232,35 @@ public class Game {
     //          of chosen card is removed from player's deck (where applicable)
     public void chooseNewCard() {
 
-        List<Card> cardsToChoose = rewardCards.getCards();
         System.out.println("\nType the name of the card you would like to add to your deck:");
         String cardChosen = input.nextLine();
         boolean isName = false;
-        for (int i = 0; i < cardsToChoose.size(); i++) {
-            isName = cardsToChoose.get(i).getName().equals(cardChosen);
+        for (int i = 0; i < rewardCards.getCards().size(); i++) {
+            isName = rewardCards.getCards().get(i).getName().equals(cardChosen);
             if (i == 1 || isName) {
                 break;
             }
         }
-
         if (isName) {
             Card addedCard = rewardCards.getCard(cardChosen);
             removeWeakerCardOfType(addedCard);
             newCard(addedCard);
             rewardCards.removeCard(addedCard);
+            removeWeakerCardsNotChosen();
         } else {
-            System.out.println("\nSorry, this name is invalid name... Please try again.");
+            System.out.println("\nSorry, this name is invalid... Please try again.");
             chooseNewCard();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes the weaker version of card type if it has not been chosen by the time
+    //          the stronger version appears as a choice to player.
+    public void removeWeakerCardsNotChosen() {
+        if (rewardCards.contains("Iron Shield") && rewardCards.getCards().size() == 5) {
+            rewardCards.removeCard(rewardCards.getCard("Iron Shield"));
+        } else if (rewardCards.contains("Platinum Shield") && rewardCards.getCards().size() == 3) {
+            rewardCards.removeCard(rewardCards.getCard("Platinum Shield"));
         }
     }
 
@@ -269,9 +283,11 @@ public class Game {
     // EFFECTS: removes any card from player card deck that is of same type as c
     public void removeWeakerCardOfType(Card c) {
 
-        for (Card i : player.getCardDeck().getCards()) {
-            if (i.getEffect().getEffectType() == c.getEffect().getEffectType()) {
-                player.getCardDeck().removeCard(i);
+        List<Card> playerCards = player.getCardDeck().getCards();
+        for (int i = 0; i < playerCards.size(); i++) {
+            if (playerCards.get(i).getEffect().getEffectType() == c.getEffect().getEffectType()) {
+                player.getCardDeck().removeCard(playerCards.get(i));
+                i--;
             }
         }
 
