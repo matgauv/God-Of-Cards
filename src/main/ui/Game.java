@@ -14,22 +14,6 @@ public class Game {
 
     private static final int MAX_HEALTH = 1000; //MAX HEALTH FOR PLAYER
 
-    private static final Character HADES = new Character("HADES, GOD OF THE UNDERWORLD",
-            750); // CONSTANT HADES CHARACTER OBJECT
-
-    private static final Character APHRODITE = new Character("APHRODITE, GODDESS OF LOVE",
-            1000); // CONSTANT APHRODITE CHARACTER OBJECT
-
-    private static final Character POSEIDON = new Character("POSEIDON, GOD OF THE SEA",
-            1250); // CONSTANT POSEIDON CHARACTER OBJECT
-
-    private static final Character ATHENA = new Character("ATHENA, GODDESS OF WAR",
-            1500); // CONSTANT ATHENA CHARACTER OBJECT
-
-    private static final Character ZEUS = new Character("ZEUS, FATHER GOD OF THE SKY",
-            2000); // CONSTANT ZEUS CHARACTER OBJECT
-
-
     private Character player;           // the player character who interacts with the game.
     private Character boss;             // the current boss character that player is fighting
     private Scanner input;              // player input
@@ -168,11 +152,16 @@ public class Game {
         listOfGods = new ArrayList();
         rewardCards = new CardDeck();
 
-        listOfGods.add(HADES);
-        listOfGods.add(APHRODITE);
-        listOfGods.add(POSEIDON);
-        listOfGods.add(ATHENA);
-        listOfGods.add(ZEUS);
+        listOfGods.add(new Character("HADES, GOD OF THE UNDERWORLD",
+                750));
+        listOfGods.add(new Character("APHRODITE, GODDESS OF LOVE",
+                1000));
+        listOfGods.add(new Character("POSEIDON, GOD OF THE SEA",
+                1250));
+        listOfGods.add(new Character("ATHENA, GODDESS OF WAR",
+                1500));
+        listOfGods.add(new Character("ZEUS, FATHER GOD OF THE SKY",
+                2000));
 
         rewardCards.addCard(PlayerCards.PLAYER_SHIELD_1);
         rewardCards.addCard(PlayerCards.PLAYER_PIERCE_1);
@@ -357,8 +346,16 @@ public class Game {
 
     // EFFECTS: represents the gameOver state
     public void gameOver() {
-        System.out.println("\nThanks for playing !");
-
+        System.out.println("\nWould you like to play again? [yes/no]");
+        String again = input.nextLine();
+        if (again.equals("yes")) {
+            runGame();
+        } else if (again.equals("no")) {
+            System.out.println("Thanks for playing!");
+        } else {
+            System.out.println("\nError-- Invalid Input...");
+            gameOver();
+        }
     }
 
     // EFFECTS: represents the state where player wins.

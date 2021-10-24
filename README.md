@@ -41,4 +41,10 @@ what move a boss will choose to take each turn.
 and fight future stronger opponents.
 - As a user, I want to be given a choice of what new Card I want to add to my CardDeck after each successful battle. 
 
+## User Stories (Phase 2):
+
+- As a user, if I choose the "quit" option before the start of my next battle, I want to be given the *option* to save 
+my progress or quit without saving.
+- As a user, when I start up the application, I want to be given the *option* to load my saved progress and start right
+before my next battle or start from scratch.
 
