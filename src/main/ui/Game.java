@@ -4,6 +4,8 @@ import model.Card;
 import model.CardDeck;
 import model.Character;
 import model.Effect;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,8 @@ public class Game {
     private Scanner input;              // player input
     private CardDeck rewardCards;       // a list of cards that player can choose to add to their deck
     private List<Character> listOfGods; // a list of boss characters that player has to fight
+    private JsonReader reader;
+    private JsonWriter writer;
 
     // Instantiates a new game and runs it.
     public Game() {
