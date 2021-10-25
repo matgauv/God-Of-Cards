@@ -52,11 +52,11 @@ public class Effect implements Writable {
     // EFFECTS: converts an effect to a JSONObject
     @Override
     public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("damage", damage);
-        json.put("resistance", resistance);
-        json.put("effectType", effectType);
+        JSONObject effectObject = new JSONObject();
+        effectObject.put("damage", damage);
+        effectObject.put("resistance", resistance);
+        effectObject.put("effectType", effectType);
 
-        return json;
+        return effectObject;
     }
 }

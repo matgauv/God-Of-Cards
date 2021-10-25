@@ -78,19 +78,19 @@ public class CardDeck implements Writable {
     // EFFECTS: converts a CardDeck to a JSONObject
     @Override
     public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("cards", cardsToJson());
-        return json;
+        JSONObject cardDeckObject = new JSONObject();
+        cardDeckObject.put("cards", cardsToJson());
+        return cardDeckObject;
     }
 
     // EFFECTS: converts all cards in cardDeck to JSONObjects.
     public JSONArray cardsToJson() {
-        JSONArray jsonArray = new JSONArray();
+        JSONArray cardsArray = new JSONArray();
         for (Card c : cards) {
-            jsonArray.put(c.toJson());
+            cardsArray.put(c.toJson());
         }
 
-        return jsonArray;
+        return cardsArray;
     }
 
 

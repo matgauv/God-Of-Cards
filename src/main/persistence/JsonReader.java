@@ -31,9 +31,9 @@ public class JsonReader {
     // EFFECTS: reads player from file and returns it;
     // throws IOException if an error occurs reading data from file
     public Character readPlayer() throws IOException {
-        String jsonData = readFile(source);
-        JSONObject jsonObject = new JSONObject(jsonData);
-        return parsePlayer(jsonObject);
+        String savedPlayerData = readFile(source);
+        JSONObject savedPlayerObject = new JSONObject(savedPlayerData);
+        return parsePlayer(savedPlayerObject);
     }
 
     // modeled after read() method in JsonReader class:
@@ -41,9 +41,9 @@ public class JsonReader {
     // EFFECTS: reads cardDeck from file and returns it;
     // throws IOException if an error occurs reading data from file
     public CardDeck readCardDeck() throws IOException {
-        String jsonData = readFile(source);
-        JSONObject jsonObject = new JSONObject(jsonData);
-        return parseCardDeck(jsonObject);
+        String savedCardDeckData = readFile(source);
+        JSONObject savedCardDeckObject = new JSONObject(savedCardDeckData);
+        return parseCardDeck(savedCardDeckObject);
     }
 
     // copied from readFile() method in JsonReader class:
@@ -60,11 +60,11 @@ public class JsonReader {
     }
 
     // EFFECTS: parses cardDeck from JSONObject and returns it.
-    private CardDeck parseCardDeck(JSONObject jsonObject) {
+    private CardDeck parseCardDeck(JSONObject cardDeckObject) {
         CardDeck cardDeck = new CardDeck();
-        JSONArray jsonArray = jsonObject.getJSONArray("cards");
-        for (Object json : jsonArray) {
-            JSONObject nextCard = (JSONObject) json;
+        JSONArray cards = cardDeckObject.getJSONArray("cards");
+        for (Object card : cards) {
+            JSONObject nextCard = (JSONObject) card;
             addCard(cardDeck, nextCard);
 
         }
@@ -74,22 +74,22 @@ public class JsonReader {
     }
 
     // EFFECTS: parses player from JSONObject and returns it.
-    private Character parsePlayer(JSONObject jsonObject) {
-        String name = jsonObject.getString("player name");
-        int health = jsonObject.getInt("health");
+    private Character parsePlayer(JSONObject playerObject) {
+        String name = playerObject.getString("player name");
+        int health = playerObject.getInt("health");
         Character player = new Character(name, health);
-        addCards(player, jsonObject);
-        addEffectsApplied(player, jsonObject);
+        addCards(player, playerObject);
+        addEffectsApplied(player, playerObject);
         return player;
     }
 
     // MODIFIES: c
     // EFFECTS: parses cards from JSONObject and adds them to player CardDeck.
-    private void addCards(Character c, JSONObject jsonObject) {
-        JSONObject cardDeck = jsonObject.getJSONObject("Card Deck");
-        JSONArray jsonArray = cardDeck.getJSONArray("cards");
-        for (Object json : jsonArray) {
-            JSONObject nextCard = (JSONObject) json;
+    private void addCards(Character c, JSONObject playerObject) {
+        JSONObject cardDeck = playerObject.getJSONObject("Card Deck");
+        JSONArray cards = cardDeck.getJSONArray("cards");
+        for (Object card : cards) {
+            JSONObject nextCard = (JSONObject) card;
             addCard(c.getCardDeck(), nextCard);
 
         }
@@ -98,19 +98,19 @@ public class JsonReader {
 
     // MODIFIES: c
     // EFFECTS: parses effects from JSONObject and adds them to player effectsApplied.
-    private void addEffectsApplied(Character c, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("Effects Applied");
-        for (Object json : jsonArray) {
-            JSONObject nextEffect = (JSONObject) json;
+    private void addEffectsApplied(Character c, JSONObject playerObject) {
+        JSONArray effectsApplied = playerObject.getJSONArray("Effects Applied");
+        for (Object effect : effectsApplied) {
+            JSONObject nextEffect = (JSONObject) effect;
             addEffect(c, nextEffect);
         }
     }
 
     // MODIFIES: cd
     // parses an individual card and adds it to cardDeck.
-    private void addCard(CardDeck cd, JSONObject jsonObject) {
-        String cardName = jsonObject.getString("card name");
-        JSONObject effect = jsonObject.getJSONObject("effect");
+    private void addCard(CardDeck cd, JSONObject cardObject) {
+        String cardName = cardObject.getString("card name");
+        JSONObject effect = cardObject.getJSONObject("effect");
         int effectDamage = effect.getInt("damage");
         int effectResistance = effect.getInt("resistance");
         int effectType = effect.getInt("effectType");
@@ -122,10 +122,10 @@ public class JsonReader {
 
     // MODIFIES: c
     // parses an individual effect and adds it to effectsApplied.
-    private void addEffect(Character c, JSONObject jsonObject) {
-        int effectDamage = jsonObject.getInt("damage");
-        int effectResistance = jsonObject.getInt("resistance");
-        int effectType = jsonObject.getInt("effectType");
+    private void addEffect(Character c, JSONObject effectObject) {
+        int effectDamage = effectObject.getInt("damage");
+        int effectResistance = effectObject.getInt("resistance");
+        int effectType = effectObject.getInt("effectType");
         Effect effect = new Effect(effectDamage, effectResistance, effectType);
         c.getEffectsApplied().add(effect);
     }

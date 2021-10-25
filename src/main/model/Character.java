@@ -150,24 +150,24 @@ public class Character implements Writable {
     // EFFECTS: converts a character object into a JSONObject.
     @Override
     public JSONObject toJson() {
-        JSONObject json = new JSONObject();
+        JSONObject playerObject = new JSONObject();
         JSONObject cardDeck2 = cardDeck.toJson();
-        json.put("player name", name);
-        json.put("health", health);
-        json.put("Card Deck", cardDeck2);
-        json.put("Effects Applied", effectsToJson());
+        playerObject.put("player name", name);
+        playerObject.put("health", health);
+        playerObject.put("Card Deck", cardDeck2);
+        playerObject.put("Effects Applied", effectsToJson());
 
-        return json;
+        return playerObject;
     }
 
     // EFFECTS: converts all effectsApplied on player to JSon Objects.
     public JSONArray effectsToJson() {
-        JSONArray jsonArray = new JSONArray();
+        JSONArray effectsAppliedArray = new JSONArray();
         for (Effect e : effectsApplied) {
-            jsonArray.put(e.toJson());
+            effectsAppliedArray.put(e.toJson());
         }
 
-        return jsonArray;
+        return effectsAppliedArray;
 
     }
 }

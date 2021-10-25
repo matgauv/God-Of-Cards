@@ -29,9 +29,9 @@ public class Card implements Writable {
     // EFFECTS: converts a card object into a JSONObject
     @Override
     public JSONObject toJson() {
-        JSONObject json = new JSONObject();
-        json.put("card name", name);
-        json.put("effect", effect.toJson());
-        return json;
+        JSONObject cardObject = new JSONObject();
+        cardObject.put("card name", name);
+        cardObject.put("effect", effect.toJson());
+        return cardObject;
     }
 }

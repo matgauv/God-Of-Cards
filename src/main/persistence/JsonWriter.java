@@ -34,8 +34,8 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of Player to file
     public void write(Character p) {
-        JSONObject json = p.toJson();
-        saveToFile(json.toString(TAB));
+        JSONObject playerObject = p.toJson();
+        saveToFile(playerObject.toString(TAB));
     }
 
     // modeled after write() method in JsonWriter class:
@@ -43,8 +43,8 @@ public class JsonWriter {
     // MODIFIES: this
     // EFFECTS: writes JSON representation of CardDeck to file
     public void write(CardDeck cd) {
-        JSONObject json = cd.toJson();
-        saveToFile(json.toString(TAB));
+        JSONObject cardDeckObject = cd.toJson();
+        saveToFile(cardDeckObject.toString(TAB));
     }
 
     // copied from saveToFile() method in JsonWriter class:
