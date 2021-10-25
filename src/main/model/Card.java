@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents a card containing a unique name and card effect
-public class Card {
+public class Card implements Writable {
 
     private String name;   // the name of a card; each card has a unique name.
     private Effect effect; // the effect that the card triggers when played; a card only has one effect
@@ -19,5 +22,13 @@ public class Card {
 
     public String getName() {
         return name;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("card name", name);
+        json.put("effect", effect.toJson());
+        return json;
     }
 }

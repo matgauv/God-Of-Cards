@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a CardDeck that holds Card objects in a list and can act on them.
-public class CardDeck {
+public class CardDeck implements Writable {
 
     private List<Card> cards; // A list of cards in the card deck.
 
@@ -70,6 +74,24 @@ public class CardDeck {
     public List<Card> getCards() {
         return cards;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("cards", cardsToJson());
+        return json;
+    }
+
+    public JSONArray cardsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Card c : cards) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
+    }
+
+
 
 
 

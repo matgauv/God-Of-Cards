@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 // Represents an Effect Object with a damage and resistance component and an effect type.
-public class Effect {
+public class Effect implements Writable {
 
     private int damage;     // damage component of the effect (only applicable for attack or pierce cards).
     private int resistance; // resistance component of the effect (only applicable for shield cards).
@@ -44,5 +47,15 @@ public class Effect {
     public boolean isStrength() {
 
         return effectType == 3;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("damage", damage);
+        json.put("resistance", resistance);
+        json.put("effectType", effectType);
+
+        return json;
     }
 }

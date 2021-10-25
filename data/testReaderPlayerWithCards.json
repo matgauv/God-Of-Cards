@@ -1,0 +1,27 @@
+{
+  "Effects Applied": [],
+
+  "Card Deck": {
+    "cards": [
+      {
+        "card name": "Dagger Slash",
+        "effect": {
+          "damage": 200,
+          "resistance": 0,
+          "effectType": 1
+        }
+      },
+      {
+        "card name": "Platinum Shield",
+        "effect": {
+          "damage": 0,
+          "resistance": 200,
+          "effectType": 2
+        }
+      }
+    ]
+  },
+
+  "health": 946,
+  "player name": "Poppy"
+}

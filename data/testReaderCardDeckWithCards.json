@@ -1,0 +1,20 @@
+{
+"cards": [
+  {
+    "card name": "Bolt Cutter",
+    "effect": {
+      "damage": 400,
+      "resistance": 0,
+      "effectType": 1
+    }
+  },
+  {
+    "card name": "Platinum Pierce",
+    "effect": {
+      "damage": 200,
+      "resistance": 0,
+      "effectType": 3
+    }
+  }
+]
+}

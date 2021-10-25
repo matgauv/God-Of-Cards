@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.List;
 
 // Represents a Character with a name, health, a CardDeck, and a list of applied effects.
-public class Character {
+public class Character implements Writable {
 
     private String name;                 // the name of a Character.
     private int health;                  // the health of a Character.
@@ -140,6 +144,28 @@ public class Character {
 
     public List<Effect> getEffectsApplied() {
         return effectsApplied;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        JSONObject cardDeck2 = cardDeck.toJson();
+        json.put("player name", name);
+        json.put("health", health);
+        json.put("Card Deck", cardDeck2);
+        json.put("Effects Applied", effectsToJson());
+
+        return json;
+    }
+
+    public JSONArray effectsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Effect e : effectsApplied) {
+            jsonArray.put(e.toJson());
+        }
+
+        return jsonArray;
+
     }
 }
 
