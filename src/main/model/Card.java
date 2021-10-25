@@ -16,14 +16,17 @@ public class Card implements Writable {
         this.effect = effect;
     }
 
+    // EFFECTS: returns effect of card
     public Effect getEffect() {
         return effect;
     }
 
+    // EFFECTS: returns name of card.
     public String getName() {
         return name;
     }
 
+    // EFFECTS: converts a card object into a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

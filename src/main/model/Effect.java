@@ -49,6 +49,7 @@ public class Effect implements Writable {
         return effectType == 3;
     }
 
+    // EFFECTS: converts an effect to a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

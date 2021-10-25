@@ -16,16 +16,16 @@ import java.util.Scanner;
 public class Game {
 
     private static final int MAX_HEALTH = 1000; //MAX HEALTH FOR PLAYER
-    private static final String PLAYER_SOURCE = "./data/savedPlayer.json";
-    private static final String CARDS_SOURCE = "./data/savedCards.json";
+    private static final String PLAYER_SOURCE = "./data/savedPlayer.json"; // source file for saved player data
+    private static final String CARDS_SOURCE = "./data/savedCards.json"; // source file for saved card data
 
     private Character player;           // the player character who interacts with the game.
     private Character boss;             // the current boss character that player is fighting
     private Scanner input;              // player input
     private CardDeck rewardCards;       // a list of cards that player can choose to add to their deck
     private List<Character> listOfGods; // a list of boss characters that player has to fight
-    private JsonReader reader;
-    private JsonWriter writer;
+    private JsonReader reader;          // JsonReader used for loading saved games.
+    private JsonWriter writer;          // JsonWriter for saving games.
 
     // Instantiates a new game and runs it.
     public Game() {
@@ -401,7 +401,7 @@ public class Game {
 
     // MODIFIES: this
     // EFFECTS: writer writes and saves a representation of the player and rewardCard fields
-    //          throws an IOException if PLAYER_SOURCE or CARDS_SOURCE is not found...
+    //          throws an IOException if PLAYER_SOURCE or CARDS_SOURCE is not found.
     public void saveGame() {
         try {
             writer = new JsonWriter(PLAYER_SOURCE);

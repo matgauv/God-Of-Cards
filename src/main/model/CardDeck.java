@@ -75,6 +75,7 @@ public class CardDeck implements Writable {
         return cards;
     }
 
+    // EFFECTS: converts a CardDeck to a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -82,6 +83,7 @@ public class CardDeck implements Writable {
         return json;
     }
 
+    // EFFECTS: converts all cards in cardDeck to JSONObjects.
     public JSONArray cardsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Card c : cards) {

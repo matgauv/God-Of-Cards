@@ -142,10 +142,12 @@ public class Character implements Writable {
         return cardDeck;
     }
 
+    // EFFECTS: returns effectsApplied on player
     public List<Effect> getEffectsApplied() {
         return effectsApplied;
     }
 
+    // EFFECTS: converts a character object into a JSONObject.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -158,6 +160,7 @@ public class Character implements Writable {
         return json;
     }
 
+    // EFFECTS: converts all effectsApplied on player to JSon Objects.
     public JSONArray effectsToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Effect e : effectsApplied) {
