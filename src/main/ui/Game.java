@@ -7,6 +7,7 @@ import model.Effect;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -15,6 +16,8 @@ import java.util.Scanner;
 public class Game {
 
     private static final int MAX_HEALTH = 1000; //MAX HEALTH FOR PLAYER
+    private static final String PLAYER_SOURCE = "./data/savedPlayer.json";
+    private static final String CARDS_SOURCE = "./data/savedCards.json";
 
     private Character player;           // the player character who interacts with the game.
     private Character boss;             // the current boss character that player is fighting
@@ -30,11 +33,22 @@ public class Game {
     }
 
     // EFFECTS: starts the game, initializes fields, iterates player through all boss battles,
-    //          tracks if player has won or lost the game.
+    //          tracks if player has won or lost the game, allows player to load saved games where
+    //          applicable.
     public void runGame() {
 
-        setUpGame();
-        beginGame();
+        starterText();
+        input = new Scanner(System.in);
+        String option = input.nextLine();
+        if (option.equals("1")) {
+            setUpGame();
+            beginGame();
+        } else if (option.equals("2")) {
+            loadGame();
+        } else {
+            System.out.println("\nInvalid option-- Please try again.");
+            runGame();
+        }
 
         for (Character god : listOfGods) {
             initiateBattle(god);
@@ -45,8 +59,6 @@ public class Game {
         if (player.getHealth() > 0) {
             gameWin();
         }
-
-
         gameOver();
     }
 
@@ -60,9 +72,17 @@ public class Game {
         printBorders();
         System.out.println(boss.getName() + " has challenged " + player.getName() + " to a duel...");
         printBorders();
-        getRightInput("accept", "Type 'accept' to accept the challenge");
-        playerTurn();
-
+        System.out.println("\nType 'accept' to accept the challenge or 'quit' to quit the game");
+        String choice = input.nextLine();
+        if (choice.equals("accept")) {
+            playerTurn();
+        } else if (choice.equals("quit")) {
+            System.out.println("\nGoodbye!");
+            player.setHealth(0);
+        } else {
+            System.out.println("\nInvalid input-- Please try again.");
+            initiateBattle(boss);
+        }
     }
 
     // EFFECTS: represents a players turn; spawns death message if player health = 0,
@@ -147,6 +167,8 @@ public class Game {
             System.out.println("\nYou have received a reward for your success...");
             getRightInput("view", "Type 'view' to view your reward");
             displayNewCard();
+            getRightInput("save", "Type 'save' to save your progress");
+            saveGame();
         }
     }
 
@@ -179,7 +201,6 @@ public class Game {
     // EFFECTS: initializes input and player fields with user inputted data.
     public void beginGame() {
         System.out.println("Please enter your name: ");
-        input = new Scanner(System.in);
         String name = input.nextLine();
         System.out.println("God of?: ");
         String godOf = input.nextLine();
@@ -369,5 +390,104 @@ public class Game {
         printBorders();
         System.out.println("You are worthy of being deemed " + player.getName() + " ...AND CARDS!");
         printBorders();
+    }
+
+    // EFFECTS: prints the starter text for a new game.
+    public void starterText() {
+        System.out.println("Please select an option--");
+        System.out.println("\n\t'1' => Start a new game");
+        System.out.println("\n\t'2' => Load Save File");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: writer writes and saves a representation of the player and rewardCard fields
+    //          throws an IOException if PLAYER_SOURCE or CARDS_SOURCE is not found...
+    public void saveGame() {
+        try {
+            writer = new JsonWriter(PLAYER_SOURCE);
+            writer.open();
+            writer.write(player);
+            writer.close();
+            writer = new JsonWriter(CARDS_SOURCE);
+            writer.open();
+            writer.write(rewardCards);
+            writer.close();
+            System.out.println("\nYour progress has been saved!");
+        } catch (IOException e) {
+            System.out.println("Error-- file not able to save...");
+        }
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: reader reads the saved player and rewardCards data from file and instantiates fields
+    //          with those values.
+    //          throws an IOException if no save file has been made.
+    public void loadGame() {
+        try {
+            reader = new JsonReader(PLAYER_SOURCE);
+            player = reader.readPlayer();
+            System.out.println("\nWelcome back " + player.getName());
+            reader = new JsonReader(CARDS_SOURCE);
+            rewardCards = reader.readCardDeck();
+            addGods();
+
+        } catch (IOException e) {
+            System.out.println("Error-- No Save File Could be found...");
+            runGame();
+        }
+
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: addsGods to listOfGods depending on where player is when loading a saved game.
+    public void addGods() {
+        listOfGods = new ArrayList<>();
+        if (rewardCards.numCards() == 4) {
+            listOfGods.add(new Character("APHRODITE, GODDESS OF LOVE",
+                    1000));
+            listOfGods.add(new Character("POSEIDON, GOD OF THE SEA",
+                    1250));
+            listOfGods.add(new Character("ATHENA, GODDESS OF WAR",
+                    1500));
+            listOfGods.add(new Character("ZEUS, FATHER GOD OF THE SKY",
+                    2000));
+        } else if (rewardCards.numCards() == 3) {
+            listOfGods.add(new Character("POSEIDON, GOD OF THE SEA",
+                    1250));
+            listOfGods.add(new Character("ATHENA, GODDESS OF WAR",
+                    1500));
+            listOfGods.add(new Character("ZEUS, FATHER GOD OF THE SKY",
+                    2000));
+        } else {
+            addGodsContd();
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: addsGods to listOfGods depending on where player is when loading a saved game.
+    public void addGodsContd() {
+        if (rewardCards.numCards() == 2) {
+            listOfGods.add(new Character("ATHENA, GODDESS OF WAR",
+                    1500));
+            listOfGods.add(new Character("ZEUS, FATHER GOD OF THE SKY",
+                    2000));
+        } else if (rewardCards.numCards() == 1) {
+            listOfGods.add(new Character("ZEUS, FATHER GOD OF THE SKY",
+                    2000));
+        } else {
+            listOfGods.add(new Character("HADES, GOD OF THE UNDERWORLD",
+                    750));
+            listOfGods.add(new Character("APHRODITE, GODDESS OF LOVE",
+                    1000));
+            listOfGods.add(new Character("POSEIDON, GOD OF THE SEA",
+                    1250));
+            listOfGods.add(new Character("ATHENA, GODDESS OF WAR",
+                    1500));
+            listOfGods.add(new Character("ZEUS, FATHER GOD OF THE SKY",
+                    2000));
+
+        }
     }
 }
