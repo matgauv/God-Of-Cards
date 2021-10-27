@@ -43,8 +43,8 @@ and fight future stronger opponents.
 
 ## User Stories (Phase 2):
 
-- As a user, I want to be prompted to save my progress after each successful battle and be given the option to quit the
-game before my next battle if I want to.
+- As a user, I want to be given the option to save my progress after each successful battle and be given the option 
+to quit the game before the start of my next battle if I want to.
 - As a user, when I start up the application, I want to be given the option to load my saved progress and start right
 before my next battle or start from scratch.
 

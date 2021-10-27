@@ -151,10 +151,10 @@ public class Character implements Writable {
     @Override
     public JSONObject toJson() {
         JSONObject playerObject = new JSONObject();
-        JSONObject cardDeck2 = cardDeck.toJson();
+        JSONObject jsonCardDeck = cardDeck.toJson();
         playerObject.put("player name", name);
         playerObject.put("health", health);
-        playerObject.put("Card Deck", cardDeck2);
+        playerObject.put("Card Deck", jsonCardDeck);
         playerObject.put("Effects Applied", effectsToJson());
 
         return playerObject;

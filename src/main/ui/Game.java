@@ -77,7 +77,7 @@ public class Game {
         if (choice.equals("accept")) {
             playerTurn();
         } else if (choice.equals("quit")) {
-            System.out.println("\nGoodbye!");
+            System.out.println("\nAre you sure you want to quit?");
             player.setHealth(0);
         } else {
             System.out.println("\nInvalid input-- Please try again.");
@@ -167,8 +167,7 @@ public class Game {
             System.out.println("\nYou have received a reward for your success...");
             getRightInput("view", "Type 'view' to view your reward");
             displayNewCard();
-            getRightInput("save", "Type 'save' to save your progress");
-            saveGame();
+            promptSave();
         }
     }
 
@@ -371,7 +370,7 @@ public class Game {
 
     // EFFECTS: represents the gameOver state
     public void gameOver() {
-        System.out.println("\nWould you like to play again? [yes/no]");
+        System.out.println("\nContinue Playing? [yes/no]");
         String again = input.nextLine();
         if (again.equals("yes")) {
             runGame();
@@ -397,6 +396,20 @@ public class Game {
         System.out.println("Please select an option--");
         System.out.println("\n\t'1' => Start a new game");
         System.out.println("\n\t'2' => Load Save File");
+    }
+
+    // EFFECTS: prompts user to save current state of game or continue without saving.
+    public void promptSave() {
+        System.out.println("\nChoose one of the following--");
+        System.out.println("\n\t'1' => Save Game");
+        System.out.println("\n\t'2' => Continue without saving");
+        String chosen = input.nextLine();
+        if (chosen.equals("1")) {
+            saveGame();
+        } else if (!chosen.equals("2")) {
+            System.out.println("\nError -- Invalid Input");
+            promptSave();
+        }
     }
 
     // MODIFIES: this
