@@ -201,9 +201,19 @@ public class Game {
     public void beginGame() {
         System.out.println("Please enter your name: ");
         String name = input.nextLine();
-        System.out.println("God of?: ");
+        System.out.println("Are you a 'God' or a 'Goddess'?");
+        String gender = input.nextLine();
+        if (gender.toUpperCase().equals("GODDESS")) {
+            gender = "GODDESS OF";
+        } else if (gender.toUpperCase().equals("GOD")) {
+            gender = "GOD OF";
+        } else {
+            System.out.println("\nError-- Please try again");
+            beginGame();
+        }
+        System.out.println("God/Goddess of?: ");
         String godOf = input.nextLine();
-        player = new Character(name.toUpperCase() + ", GOD OF " + godOf.toUpperCase(), MAX_HEALTH);
+        player = new Character(name.toUpperCase() + ", " + gender + " " + godOf.toUpperCase(), MAX_HEALTH);
         System.out.println("\nA new challenger has emerged... ");
         System.out.println("Welcome to Mount Olympus-- " + player.getName());
         getRightInput("begin", "Type 'begin' to begin your journey...");

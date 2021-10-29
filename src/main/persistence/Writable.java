@@ -6,5 +6,7 @@ import org.json.JSONObject;
 // based off of Writable interface found in the following repository:
 // https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 public interface Writable {
+
+    // EFFECTS: converts an object to a JSONObject
     JSONObject toJson();
 }
