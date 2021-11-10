@@ -48,3 +48,10 @@ to quit the game before the start of my next battle if I want to.
 - As a user, when I start up the application, I want to be given the option to load my saved progress and start right
 before my next battle or start from scratch.
 
+## User Stories (Phase 3):
+
+- As a user, I want to be able to see a visual representation of my health and individual icons
+  of different cards in my card deck during battle.
+- As a user, I want to be able to see visual icons of the cards that I can choose from after each successful battle.
+- As a game designer, I want to add background images to each battle showing the current Greek God/Goddess that the 
+player is fighting along with the opponent's health and individual cards in the opponent's card deck.

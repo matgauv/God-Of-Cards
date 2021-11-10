@@ -6,7 +6,7 @@ import model.Effect;
 // A class that stores all boss cards
 public class BossCards {
 
-    public static final Card HADES_ATTACK = new Card("Soul Extraction",
+    public static final Card HADES_ATTACK = new Card("Soul Extract",
             new Effect(150, 0, 1));
 
     public static final Card HADES_SHIELD = new Card("Shield of Souls",
@@ -40,12 +40,12 @@ public class BossCards {
             new Effect(0, 250, 2));
 
     public static final Card ATHENA_PIERCE = new Card("Shield Shatter",
-            new Effect(100, 0, 3));
+            new Effect(125, 0, 3));
 
-    public static final Card ZEUS_ATTACK = new Card("Wrath of Olympus",
+    public static final Card ZEUS_ATTACK = new Card("Olympus' Wrath",
             new Effect(350, 0, 1));
 
-    public static final Card ZEUS_SHIELD = new Card("Immortal Complex",
+    public static final Card ZEUS_SHIELD = new Card("Immortality",
             new Effect(0, 350, 2));
 
     public static final Card ZEUS_PIERCE = new Card("Thunderstorm",

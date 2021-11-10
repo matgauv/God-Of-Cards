@@ -184,6 +184,17 @@ public class CharacterTest {
         assertEquals(0, p.getEffectsApplied().size());
     }
 
+    @Test
+    public void testClearEffectsApplied() {
+        p.addCardEffect(ShieldCard);
+        p.addCardEffect(StrengthCard);
+
+        assertEquals(2, p.getEffectsApplied().size());
+
+        p.clearEffectsApplied();
+
+        assertEquals(0, p.getEffectsApplied().size());
+    }
 
 
 

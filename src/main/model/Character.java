@@ -147,6 +147,12 @@ public class Character implements Writable {
         return effectsApplied;
     }
 
+    // MODIFIES: this
+    // EFFECTS: clears player of all current effects applied.
+    public void clearEffectsApplied() {
+        effectsApplied = new ArrayList<>();
+    }
+
     // EFFECTS: converts a character object into a JSONObject.
     @Override
     public JSONObject toJson() {

@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // A game class representing the console user interface that player's interact with
-public class Game {
+public class GameUI {
 
     private static final int MAX_HEALTH = 1000; //MAX HEALTH FOR PLAYER
     private static final String PLAYER_SOURCE = "./data/savedPlayer.json"; // source file for saved player data
@@ -27,8 +27,12 @@ public class Game {
     private JsonReader reader;          // JsonReader used for loading saved games.
     private JsonWriter writer;          // JsonWriter for saving games.
 
+    public static void main(String[] args) {
+        new GameUI();
+    }
+
     // Instantiates a new game and runs it.
-    public Game() {
+    public GameUI() {
         runGame();
     }
 
@@ -68,6 +72,7 @@ public class Game {
     public void initiateBattle(Character boss) {
         this.boss = boss;
         player.setHealth(MAX_HEALTH);
+        player.clearEffectsApplied();
         setUpBoss();
         printBorders();
         System.out.println(boss.getName() + " has challenged " + player.getName() + " to a duel...");
