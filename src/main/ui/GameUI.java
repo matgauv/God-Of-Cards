@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-// A game class representing the console user interface that player's interact with
+// A game class that runs and represents the console user interface that player's interact with
 public class GameUI {
 
     private static final int MAX_HEALTH = 1000; //MAX HEALTH FOR PLAYER
