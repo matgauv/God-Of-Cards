@@ -15,6 +15,7 @@ public class Character implements Writable {
     private CardDeck cardDeck;           // the Character's CardDeck; represents a list of cards they can use
     private List<Effect> effectsApplied; // a list of effects that are currently applied on to the Character.
 
+
     // Instantiates a new Character object with a unique name and health, an empty CardDeck,
     //                                          and no effects applied.
     public Character(String name, int health) {
@@ -99,7 +100,6 @@ public class Character implements Writable {
             }
         }
 
-
         return resist;
     }
 
@@ -151,6 +151,26 @@ public class Character implements Writable {
     // EFFECTS: clears player of all current effects applied.
     public void clearEffectsApplied() {
         effectsApplied = new ArrayList<>();
+    }
+
+    // EFFECTS: returns an integer value representing total resistance that player currently has
+    public int getResistInt() {
+        int resist = 0;
+        for (Effect e : effectsApplied) {
+            resist += e.getResistance();
+        }
+
+        return resist;
+    }
+
+    // EFFECTS: returns an integer value representing total pierce that a player currently has
+    public int getPierceInt() {
+        int pierce = 0;
+        for (Effect e : effectsApplied) {
+            pierce += e.getDamage();
+        }
+
+        return pierce;
     }
 
     // EFFECTS: converts a character object into a JSONObject.
