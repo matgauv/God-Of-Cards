@@ -344,7 +344,7 @@ public class GameGUI implements ActionListener {
         updateEventLog(lineOne, lineTwo);
     }
 
-    // EFFECTS: processes what type the inputted card is (ie. attack, pierce, resist, healing) and returns
+    // EFFECTS: processes what type the inputted card is (i.e. attack, pierce, resist, healing) and returns
     //          a string value representing the effects the playedCard has on player/boss attributes.
     public String processCardType(Card playedCard, Effect cardEffect, Character currentPlayer, Character opponent) {
         String lineTwo;
@@ -818,7 +818,7 @@ public class GameGUI implements ActionListener {
         nameWinPanel.setOpaque(false);
         JLabel winBack = createBackground(img);
         JLabel playerNameLabel = new JLabel(player.getName());
-        playerNameLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        playerNameLabel.setFont(new Font("Arial", Font.BOLD, 20));
         nameWinPanel.add(playerNameLabel);
         mainPanel.add(nameWinPanel);
         backgroundPanel.add(winBack);
