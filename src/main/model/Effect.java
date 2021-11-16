@@ -6,28 +6,30 @@ import persistence.Writable;
 // Represents an Effect Object with a damage and resistance component and an effect type.
 public class Effect implements Writable {
 
-    private int damage;     // damage component of the effect (only applicable for attack or pierce cards).
-    private int resistance; // resistance component of the effect (only applicable for shield cards).
+    private int offenseComp;     // offense component of the effect (only applicable for attack or pierce cards).
+    private int defenseComp; // defense component of the effect (only applicable for shield cards).
     private int effectType; // type of effect; 1 = attack effect
                             //                 2 = resistance effect
                             //                 3 = strengthen effect
+                            //                 4 = healing effect
 
-    // REQUIRES: effectType must be 1, 2, or 3.
-    // EFFECTS: instantiates a new Effect with a damage component, resistance component, and an effectType.
-    public Effect(int damage, int resistance, int effectType) {
-        this.damage = damage;
-        this.resistance = resistance;
+    // REQUIRES: effectType must be 1, 2, 3, or 4.
+    // EFFECTS: instantiates a new Effect with a offense component, defense component,
+    //          and an effectType.
+    public Effect(int offenseComp, int defenseComp, int effectType) {
+        this.offenseComp = offenseComp;
+        this.defenseComp = defenseComp;
         this.effectType = effectType;
     }
 
-    // EFFECTS: returns damage component
-    public int getDamage() {
-        return damage;
+    // EFFECTS: returns damage/strength component
+    public int getOffenseComp() {
+        return offenseComp;
     }
 
-    // EFFECTS: returns resistance component
-    public int getResistance() {
-        return resistance;
+    // EFFECTS: returns resistance/healing component
+    public int getDefenseComp() {
+        return defenseComp;
     }
 
     // EFFECTS: returns effectType.
@@ -49,12 +51,18 @@ public class Effect implements Writable {
         return effectType == 3;
     }
 
+    // EFFECTS: returns true if effectType is healing(=4)
+    //          returns false otherwise.
+    public boolean isHealing() {
+        return effectType == 4;
+    }
+
     // EFFECTS: converts an effect to a JSONObject
     @Override
     public JSONObject toJson() {
         JSONObject effectObject = new JSONObject();
-        effectObject.put("damage", damage);
-        effectObject.put("resistance", resistance);
+        effectObject.put("damage", offenseComp);
+        effectObject.put("resistance", defenseComp);
         effectObject.put("effectType", effectType);
 
         return effectObject;

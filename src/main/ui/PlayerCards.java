@@ -6,6 +6,9 @@ import model.Effect;
 // A class that stores all Player cards.
 public class PlayerCards {
 
+    public static final Card PLAYER_HEALING = new Card("Tranquility",
+            new Effect(0, 100, 4));
+
     public static final Card PLAYER_ATTACK_1 = new Card("Spear Jab",
             new Effect(100, 0, 1));
 

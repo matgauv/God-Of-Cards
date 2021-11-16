@@ -148,10 +148,10 @@ public class GameUI {
 
             if (cardEffect.isStrength()) {
                 System.out.println(currentPlayer.getName() + "'S pierce has increased by "
-                        + cardEffect.getDamage());
+                        + cardEffect.getOffenseComp());
             } else {
                 System.out.println(currentPlayer.getName() + "'S resistance has increased by "
-                        + cardEffect.getResistance());
+                        + cardEffect.getDefenseComp());
             }
         } else {
             int startHealth = opponent.getHealth();
@@ -361,19 +361,19 @@ public class GameUI {
         String damage;
         if (c.getEffect().getEffectType() == 1) {
             type = "Attack";
-            int min = c.getEffect().getDamage() - 25;
-            int max = c.getEffect().getDamage() + 25;
+            int min = c.getEffect().getOffenseComp() - 25;
+            int max = c.getEffect().getOffenseComp() + 25;
             damage = min + "-" + max;
         } else if (c.getEffect().getEffectType() == 2) {
             type = "Shield";
             damage = "0";
         } else {
             type = "Pierce";
-            damage = Integer.toString(c.getEffect().getDamage());
+            damage = Integer.toString(c.getEffect().getOffenseComp());
         }
         System.out.println("\n" + "-=-=-=" + c.getName() + "=-=-=-");
         System.out.println("\n\tDamage: " + damage);
-        System.out.println("\n\tResistance: " + c.getEffect().getResistance());
+        System.out.println("\n\tResistance: " + c.getEffect().getDefenseComp());
         System.out.println("\n\tCard type: " + type);
         System.out.println("\n" + "-=-=-=" + c.getName() + "=-=-=-\n");
     }

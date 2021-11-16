@@ -16,13 +16,13 @@ public class EffectTest {
 
     @Test
     public void testGetDamage() {
-        int damage = effect.getDamage();
+        int damage = effect.getOffenseComp();
         assertEquals(1000, damage);
     }
 
     @Test
     public void testGetResistance() {
-        int resist = effect.getResistance();
+        int resist = effect.getDefenseComp();
         assertEquals(0, resist);
     }
 

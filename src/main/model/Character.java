@@ -3,6 +3,7 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.GameGUI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +49,7 @@ public class Character implements Writable {
     //          with strength effects to another character.
     public String attack(Card c, Character b) {
 
-        int cardDamage = c.getEffect().getDamage();
+        int cardDamage = c.getEffect().getOffenseComp();
         int maxDamage = cardDamage + 25;
         int minDamage = cardDamage - 25;
         int damageDealt = (int) Math.floor(Math.random() * (maxDamage - minDamage + 1) + minDamage);
@@ -57,6 +58,26 @@ public class Character implements Writable {
         String toString = name + " used " + c.getName() + " and dealt "
                 + damageDealt + " damage to " + b.getName();
         return toString;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: heals player by amount given by card.
+    //          returns the amount of health gained by player.
+    public int heal(Card c) {
+        int healthGained = 0;
+        if (c.getEffect().isHealing()) {
+            int healingAmount = c.getEffect().getDefenseComp();
+            if ((health + healingAmount) > GameGUI.MAX_HEALTH) {
+                int initialHealth = health;
+                healthGained = GameGUI.MAX_HEALTH - initialHealth;
+                health = GameGUI.MAX_HEALTH;
+            } else {
+                health += healingAmount;
+                healthGained = healingAmount;
+            }
+        }
+
+        return healthGained;
     }
 
     // MODIFIES: this
@@ -74,7 +95,7 @@ public class Character implements Writable {
 
         for (int i = 0; i < effectsApplied.size(); i++) {
             if (effectsApplied.get(i).isStrength()) {
-                strength += effectsApplied.get(i).getDamage();
+                strength += effectsApplied.get(i).getOffenseComp();
                 effectsApplied.remove(effectsApplied.get(i));
                 i--;
             }
@@ -94,7 +115,7 @@ public class Character implements Writable {
         for (int i = 0; i < effectsApplied.size(); i++) {
 
             if (effectsApplied.get(i).isResistance()) {
-                resist += effectsApplied.get(i).getResistance();
+                resist += effectsApplied.get(i).getDefenseComp();
                 effectsApplied.remove(effectsApplied.get(i));
                 i--;
             }
@@ -157,7 +178,7 @@ public class Character implements Writable {
     public int getResistInt() {
         int resist = 0;
         for (Effect e : effectsApplied) {
-            resist += e.getResistance();
+            resist += e.getDefenseComp();
         }
 
         return resist;
@@ -167,7 +188,7 @@ public class Character implements Writable {
     public int getPierceInt() {
         int pierce = 0;
         for (Effect e : effectsApplied) {
-            pierce += e.getDamage();
+            pierce += e.getOffenseComp();
         }
 
         return pierce;

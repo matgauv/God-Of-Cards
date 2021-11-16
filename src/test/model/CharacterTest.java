@@ -2,6 +2,7 @@ package model;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import ui.GameGUI;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,12 +17,15 @@ public class CharacterTest {
     private static final Card StrengthCard = new Card("Pierce Card",
             new Effect(50, 0, 3));
 
+    private static final Card HealingCard = new Card("Healing Card",
+            new Effect(0, 100, 4));
+
     private Character p;
     private Character b;
 
     @BeforeEach
     public void setUpCharacters() {
-        p = new Character("Player", 1000);
+        p = new Character("Player", GameGUI.MAX_HEALTH);
         b = new Character("Boss-man", 1250);
     }
 
@@ -41,7 +45,7 @@ public class CharacterTest {
 
     @Test
     public void testTakeDamage() {
-        int damage = AttackCard.getEffect().getDamage();
+        int damage = AttackCard.getEffect().getOffenseComp();
         p.takeDamage(damage);
         assertEquals(900, p.getHealth());
     }
@@ -194,6 +198,53 @@ public class CharacterTest {
         p.clearEffectsApplied();
 
         assertEquals(0, p.getEffectsApplied().size());
+    }
+
+    @Test
+    public void testGetResistInt() {
+        p.addCardEffect(ShieldCard);
+        p.addCardEffect(ShieldCard);
+        p.addCardEffect(StrengthCard);
+
+        assertEquals(200, p.getResistInt());
+    }
+
+    @Test
+    public void testGetPierceInt() {
+        p.addCardEffect(ShieldCard);
+        p.addCardEffect(StrengthCard);
+        p.addCardEffect(StrengthCard);
+
+        assertEquals(100, p.getPierceInt());
+    }
+
+    @Test
+    public void testPlayerHealFullHealth() {
+        assertEquals(GameGUI.MAX_HEALTH, p.getHealth());
+        assertEquals(0, p.heal(HealingCard));
+        assertEquals(GameGUI.MAX_HEALTH, p.getHealth());
+    }
+
+    @Test
+    public void testPlayerHealNotHealingCard() {
+        p.setHealth(700);
+        assertEquals(0, p.heal(StrengthCard));
+        assertEquals(700, p.getHealth());
+    }
+
+    @Test
+    public void testPlayerHealNotFullAmountOnCard() {
+        p.setHealth(GameGUI.MAX_HEALTH - 50);
+        assertEquals(50, p.heal(HealingCard));
+        assertEquals(GameGUI.MAX_HEALTH, p.getHealth());
+    }
+
+    @Test
+    public void testPlayerHealFullAmountOnCard() {
+        p.setHealth(GameGUI.MAX_HEALTH - 200);
+        int currentHealth = p.getHealth();
+        assertEquals(100, p.heal(HealingCard));
+        assertEquals(currentHealth + 100, p.getHealth());
     }
 
 

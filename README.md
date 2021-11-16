@@ -12,7 +12,7 @@ one another or apply different effects to help themselves. Only one card is play
 defeats more opponents, their card deck will grow in size with stronger and more strategic cards to flesh out their 
 arsenal and contribute to their protection and strength whilst fighting future opponents.  
 
-There are 3 types of cards:
+There are 4 types of cards:
 
 - Attack Cards
   - Deals *x* damage to opponent *(Minimum Damage <= x <= Maximum Damage)*
@@ -20,7 +20,9 @@ There are 3 types of cards:
   - Applies a resistance effect to player which subtracts *x* amount of damage from the next incoming attack from 
   opponent.
 - Pierce Cards *
-  - Applies a strengthening effect to player which adds *x* amount of damage to player's next outgoing attack. 
+  - Applies a strengthening effect to player which adds *x* amount of damage to player's next outgoing attack.
+- Healing Cards
+  - Applies a healing effect to player which replenishes *x* amount of health.
 
 **these cards can be stacked to progressively buff up an outgoing attack or weaken an incoming attack.*  
 

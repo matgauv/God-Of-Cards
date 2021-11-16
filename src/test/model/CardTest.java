@@ -24,8 +24,8 @@ public class CardTest {
     @Test
     public void testGetEffect() {
         Effect effect1 = card.getEffect();
-        assertEquals(1000, effect1.getDamage());
-        assertEquals(0, effect1.getResistance());
+        assertEquals(1000, effect1.getOffenseComp());
+        assertEquals(0, effect1.getDefenseComp());
         assertEquals(3, effect1.getEffectType());
         assertEquals(effect,effect1);
     }
