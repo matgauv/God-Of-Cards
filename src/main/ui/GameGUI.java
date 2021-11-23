@@ -38,7 +38,7 @@ public class GameGUI implements ActionListener {
     private JPanel bossAttributes;      // panel that handles boss attributes
     private JPanel playerPanel;         // panel that handles player's cards
     private JPanel playerAttributes;    // panel that handles player attributes
-    private JPanel eventLogPanel;       // panel that handles in-battle event log
+    private JPanel battleLogPanel;      // panel that handles in-battle event log
     private boolean playerDefeated;     // true if player has been defeated; false otherwise
 
     // EFFECTS: runs the program by creating a new GUI instance.
@@ -245,7 +245,7 @@ public class GameGUI implements ActionListener {
         createAttributesPanels();
         updateAttributePanel(player);
         updateAttributePanel(boss);
-        createEventLogPanel();
+        createBattleLogPanel();
         printCharacterCards(player);
         printCharacterCards(boss);
         frame.revalidate();
@@ -340,7 +340,7 @@ public class GameGUI implements ActionListener {
         Effect cardEffect = playedCard.getEffect();
         String lineOne = currentPlayer.getName() + " used " + playedCard.getName();
         String lineTwo = processCardType(playedCard, cardEffect, currentPlayer, opponent);
-        updateEventLog(lineOne, lineTwo);
+        updateBattleLog(lineOne, lineTwo);
     }
 
     // EFFECTS: processes what type the inputted card is (i.e. attack, pierce, resist, healing) and returns
@@ -374,17 +374,17 @@ public class GameGUI implements ActionListener {
         return lineTwo;
     }
 
-    // EFFECTS: updates eventLog panel with given Strings representing the effects of player/boss turns.
-    public void updateEventLog(String lineOne, String lineTwo) {
-        eventLogPanel.removeAll();
+    // EFFECTS: updates battleLog panel with given Strings representing the effects of player/boss turns.
+    public void updateBattleLog(String lineOne, String lineTwo) {
+        battleLogPanel.removeAll();
         JLabel firstLine = new JLabel(lineOne);
         JLabel secondLine = new JLabel(lineTwo);
         firstLine.setFont(new Font("Arial", Font.BOLD, 20));
         secondLine.setFont(new Font("Arial", Font.BOLD, 20));
         firstLine.setForeground(Color.WHITE);
         secondLine.setForeground(Color.WHITE);
-        eventLogPanel.add(firstLine);
-        eventLogPanel.add(secondLine);
+        battleLogPanel.add(firstLine);
+        battleLogPanel.add(secondLine);
         frame.revalidate();
         frame.repaint();
     }
@@ -487,13 +487,13 @@ public class GameGUI implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes eventLog Panel
-    public void createEventLogPanel() {
-        eventLogPanel = new JPanel();
-        eventLogPanel.setBackground(new Color(0, 0, 0, 150));
-        eventLogPanel.setBounds(60, 330, 790, 75);
-        eventLogPanel.setLayout(new FlowLayout());
-        mainPanel.add(eventLogPanel);
+    // EFFECTS: initializes battleLog Panel
+    public void createBattleLogPanel() {
+        battleLogPanel = new JPanel();
+        battleLogPanel.setBackground(new Color(0, 0, 0, 150));
+        battleLogPanel.setBounds(60, 330, 790, 75);
+        battleLogPanel.setLayout(new FlowLayout());
+        mainPanel.add(battleLogPanel);
     }
 
 

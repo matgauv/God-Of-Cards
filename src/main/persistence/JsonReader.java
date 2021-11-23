@@ -1,9 +1,7 @@
 package persistence;
 
-import model.Card;
-import model.CardDeck;
+import model.*;
 import model.Character;
-import model.Effect;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -79,6 +77,10 @@ public class JsonReader {
         int health = playerObject.getInt("health");
         Character player = new Character(name, health);
         addCards(player, playerObject);
+        for (Card c : player.getCardDeck().getCards()) {
+            Event e = new Event(c.getName() + " loaded to " + player.getName() + "'S CardDeck");
+            EventLog.getInstance().logEvent(e);
+        }
         addEffectsApplied(player, playerObject);
         return player;
     }
