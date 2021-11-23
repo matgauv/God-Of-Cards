@@ -44,6 +44,23 @@ public class CharacterTest {
     }
 
     @Test
+    public void testRemoveCards() {
+        p.addCard(ShieldCard);
+        p.addCard(HealingCard);
+        assertTrue(p.removeCard(ShieldCard));
+
+        assertEquals(1, p.getCardDeck().numCards());
+    }
+
+    @Test
+    public void testRemoveCardsNotInDeck() {
+        p.addCard(HealingCard);
+        assertFalse(p.removeCard(ShieldCard));
+        assertEquals(1, p.getCardDeck().numCards());
+    }
+
+
+    @Test
     public void testTakeDamage() {
         int damage = AttackCard.getEffect().getOffenseComp();
         p.takeDamage(damage);

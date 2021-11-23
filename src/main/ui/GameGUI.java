@@ -1,10 +1,9 @@
 package ui;
 
 
-import model.Card;
-import model.CardDeck;
+import model.*;
 import model.Character;
-import model.Effect;
+import model.Event;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -196,25 +195,25 @@ public class GameGUI implements ActionListener {
     //          on their name.
     public void setUpBoss() {
         if (boss.getName().equals("HADES, GOD OF THE UNDERWORLD")) {
-            boss.addCard(BossCards.HADES_ATTACK);
-            boss.addCard(BossCards.HADES_SHIELD);
-            boss.addCard(BossCards.HADES_PIERCE);
+            boss.getCardDeck().addCard(BossCards.HADES_ATTACK);
+            boss.getCardDeck().addCard(BossCards.HADES_SHIELD);
+            boss.getCardDeck().addCard(BossCards.HADES_PIERCE);
         } else if (boss.getName().equals("APHRODITE, GODDESS OF LOVE")) {
-            boss.addCard(BossCards.APHRODITE_ATTACK);
-            boss.addCard(BossCards.APHRODITE_SHIELD);
-            boss.addCard(BossCards.APHRODITE_PIERCE);
+            boss.getCardDeck().addCard(BossCards.APHRODITE_ATTACK);
+            boss.getCardDeck().addCard(BossCards.APHRODITE_SHIELD);
+            boss.getCardDeck().addCard(BossCards.APHRODITE_PIERCE);
         } else if (boss.getName().equals("POSEIDON, GOD OF THE SEA")) {
-            boss.addCard(BossCards.POSEIDON_ATTACK);
-            boss.addCard(BossCards.POSEIDON_SHIELD);
-            boss.addCard(BossCards.POSEIDON_PIERCE);
+            boss.getCardDeck().addCard(BossCards.POSEIDON_ATTACK);
+            boss.getCardDeck().addCard(BossCards.POSEIDON_SHIELD);
+            boss.getCardDeck().addCard(BossCards.POSEIDON_PIERCE);
         } else if (boss.getName().equals("ATHENA, GODDESS OF WAR")) {
-            boss.addCard(BossCards.ATHENA_ATTACK);
-            boss.addCard(BossCards.ATHENA_SHIELD);
-            boss.addCard(BossCards.ATHENA_PIERCE);
+            boss.getCardDeck().addCard(BossCards.ATHENA_ATTACK);
+            boss.getCardDeck().addCard(BossCards.ATHENA_SHIELD);
+            boss.getCardDeck().addCard(BossCards.ATHENA_PIERCE);
         } else {
-            boss.addCard(BossCards.ZEUS_ATTACK);
-            boss.addCard(BossCards.ZEUS_SHIELD);
-            boss.addCard(BossCards.ZEUS_PIERCE);
+            boss.getCardDeck().addCard(BossCards.ZEUS_ATTACK);
+            boss.getCardDeck().addCard(BossCards.ZEUS_SHIELD);
+            boss.getCardDeck().addCard(BossCards.ZEUS_PIERCE);
         }
     }
 
@@ -640,7 +639,7 @@ public class GameGUI implements ActionListener {
         List<Card> playerCards = player.getCardDeck().getCards();
         for (int i = 0; i < playerCards.size(); i++) {
             if (playerCards.get(i).getEffect().getEffectType() == c.getEffect().getEffectType()) {
-                player.getCardDeck().removeCard(playerCards.get(i));
+                player.removeCard(playerCards.get(i));
                 i--;
             }
         }
@@ -854,6 +853,13 @@ public class GameGUI implements ActionListener {
         }
     }
 
+    // EFFECTS: prints EventLog after game has been quit.
+    public void printLog(EventLog el) {
+        for (Event e : el) {
+            System.out.println(e.toString());
+        }
+    }
+
     // EFFECTS: provides eventHandling functionality for all clickable buttons in the game.
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -866,6 +872,7 @@ public class GameGUI implements ActionListener {
                     + "\nWelcome back, " + player.getName());
             runGame();
         } else if (e.getActionCommand().equals("Quit Game")) {
+            printLog(EventLog.getInstance());
             frame.dispose();
         } else if (e.getActionCommand().equals("Main Menu")) {
             frame.dispose();

@@ -139,7 +139,18 @@ public class Character implements Writable {
     // EFFECTS: adds card to card deck and returns true.
     //          if card is already in deck, returns false.
     public boolean addCard(Card c) {
+        Event e = new Event(c.getName() + " added to " + name + "'S CardDeck");
+        EventLog.getInstance().logEvent(e);
         return cardDeck.addCard(c);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes card from card deck and returns true.
+    //          if card is not in deck, returns false.
+    public boolean removeCard(Card c) {
+        Event e = new Event(c.getName() + " removed from " + name + "'S CardDeck");
+        EventLog.getInstance().logEvent(e);
+        return cardDeck.removeCard(c);
     }
 
     // MODIFIES: this

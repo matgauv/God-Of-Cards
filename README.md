@@ -57,3 +57,7 @@ before my next battle or start from scratch.
 - As a user, I want to be able to see visual icons of the cards that I can choose from after each successful battle.
 - As a game designer, I want to add background images to each battle showing the current Greek God/Goddess that the 
 player is fighting along with the opponent's health and individual cards in the opponent's card deck.
+
+## Phase 4: Task 2
+
+![Sample EventLog](./data/OtherImages/EventLog.png)

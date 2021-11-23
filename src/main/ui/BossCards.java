@@ -19,7 +19,7 @@ public class BossCards {
             new Effect(200, 0, 1));
 
     public static final Card APHRODITE_SHIELD = new Card("Love's Gaze",
-            new Effect(0, 150, 2));
+            new Effect(0, 100, 2));
 
     public static final Card APHRODITE_PIERCE = new Card("Heart-throb",
             new Effect(75, 0, 3));

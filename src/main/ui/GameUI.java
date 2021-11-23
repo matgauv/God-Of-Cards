@@ -1,9 +1,7 @@
 package ui;
 
-import model.Card;
-import model.CardDeck;
+import model.*;
 import model.Character;
-import model.Effect;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -230,25 +228,25 @@ public class GameUI {
     //          on their name.
     public void setUpBoss() {
         if (boss.getName().equals("HADES, GOD OF THE UNDERWORLD")) {
-            boss.addCard(BossCards.HADES_ATTACK);
-            boss.addCard(BossCards.HADES_SHIELD);
-            boss.addCard(BossCards.HADES_PIERCE);
+            boss.getCardDeck().addCard(BossCards.HADES_ATTACK);
+            boss.getCardDeck().addCard(BossCards.HADES_SHIELD);
+            boss.getCardDeck().addCard(BossCards.HADES_PIERCE);
         } else if (boss.getName().equals("APHRODITE, GODDESS OF LOVE")) {
-            boss.addCard(BossCards.APHRODITE_ATTACK);
-            boss.addCard(BossCards.APHRODITE_SHIELD);
-            boss.addCard(BossCards.APHRODITE_PIERCE);
+            boss.getCardDeck().addCard(BossCards.APHRODITE_ATTACK);
+            boss.getCardDeck().addCard(BossCards.APHRODITE_SHIELD);
+            boss.getCardDeck().addCard(BossCards.APHRODITE_PIERCE);
         } else if (boss.getName().equals("POSEIDON, GOD OF THE SEA")) {
-            boss.addCard(BossCards.POSEIDON_ATTACK);
-            boss.addCard(BossCards.POSEIDON_SHIELD);
-            boss.addCard(BossCards.POSEIDON_PIERCE);
+            boss.getCardDeck().addCard(BossCards.POSEIDON_ATTACK);
+            boss.getCardDeck().addCard(BossCards.POSEIDON_SHIELD);
+            boss.getCardDeck().addCard(BossCards.POSEIDON_PIERCE);
         } else if (boss.getName().equals("ATHENA, GODDESS OF WAR")) {
-            boss.addCard(BossCards.ATHENA_ATTACK);
-            boss.addCard(BossCards.ATHENA_SHIELD);
-            boss.addCard(BossCards.ATHENA_PIERCE);
+            boss.getCardDeck().addCard(BossCards.ATHENA_ATTACK);
+            boss.getCardDeck().addCard(BossCards.ATHENA_SHIELD);
+            boss.getCardDeck().addCard(BossCards.ATHENA_PIERCE);
         } else {
-            boss.addCard(BossCards.ZEUS_ATTACK);
-            boss.addCard(BossCards.ZEUS_SHIELD);
-            boss.addCard(BossCards.ZEUS_PIERCE);
+            boss.getCardDeck().addCard(BossCards.ZEUS_ATTACK);
+            boss.getCardDeck().addCard(BossCards.ZEUS_SHIELD);
+            boss.getCardDeck().addCard(BossCards.ZEUS_PIERCE);
         }
     }
 
@@ -312,7 +310,7 @@ public class GameUI {
         List<Card> playerCards = player.getCardDeck().getCards();
         for (int i = 0; i < playerCards.size(); i++) {
             if (playerCards.get(i).getEffect().getEffectType() == c.getEffect().getEffectType()) {
-                player.getCardDeck().removeCard(playerCards.get(i));
+                player.removeCard(playerCards.get(i));
                 i--;
             }
         }
@@ -391,6 +389,7 @@ public class GameUI {
             runGame();
         } else if (again.equals("no")) {
             System.out.println("Thanks for playing!");
+            printLog(EventLog.getInstance());
         } else {
             System.out.println("\nError-- Invalid Input...");
             gameOver();
@@ -466,6 +465,13 @@ public class GameUI {
         }
 
 
+    }
+
+    // EFFECTS: prints EventLog
+    public void printLog(EventLog el) {
+        for (Event e: el) {
+            System.out.println(e.toString());
+        }
     }
 
     // MODIFIES: this
