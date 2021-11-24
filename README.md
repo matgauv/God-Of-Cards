@@ -61,3 +61,18 @@ player is fighting along with the opponent's health and individual cards in the 
 ## Phase 4: Task 2
 
 ![Sample EventLog](./data/OtherImages/EventLog.png)
+
+## Phase 4: Task 3
+
+While the UML Class Diagram below looks appealing and somewhat simplistic, the code behind it was messy and lengthy in 
+some instances. If I had a chance to redesign this project, I would...
+- Refactor the Character class and make it abstract. I would also make smaller Boss and Player subclasses that extend 
+the Character class and deal with more specified behaviour that differed between the two. This was instead dealt with in
+the UI class which made it longer than it needed to be.
+- Refactor the GUI class and split it up into separate smaller components (classes) to improve the readability and 
+cohesion of the code that constructed the GUI (i.e. different classes for the main JPanels used in the GUI).
+- Figure out a way to utilize less JOptionPanes in the GUI and more in-frame buttons that provided the same
+functionality. This was a challenge for me in this project because the foundational structure of my GUI was based on a 
+loop which made waiting for user input difficult without the use of JOptionPanes (which did exactly that).
+
+![Sample EventLog](./data/UML_Design_Diagram.png)

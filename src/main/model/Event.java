@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Represents an alarm system event.
+ * Represents an event relating to a player's CardDeck
  */
 
 public class Event {
