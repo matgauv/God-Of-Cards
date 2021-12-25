@@ -335,7 +335,6 @@ public class GameGUI implements ActionListener {
     //          determines whether it is an effect, attack, or healing card and either applies effect,
     //          attacks opponent, or heals currentPlayer with the given card statistics.
     public void processCard(String cardChosen, Character currentPlayer, Character opponent) {
-
         Card playedCard = currentPlayer.getCard(cardChosen);
         Effect cardEffect = playedCard.getEffect();
         String lineOne = currentPlayer.getName() + " used " + playedCard.getName();
